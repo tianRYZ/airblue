@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>fe机试2023</title>
+    <style>
+      * {
+        margin: 0px;
+        padding: 0;
+      }
+      .left,
+      .right {
+        background: orange;
+      }
+      .center {
+        background: palegreen;
+      }
+    
+      html,body{
+        height: 100%;
+      }
+      .wrap{
+        display: flex;
+        overflow: hidden;
+        overflow-x: auto;
+        overflow-y: hidden;
+        /* align-items: center;
+        justify-content: space-around; */
+      }
+      .left,
+      .right {
+        flex: 0 0 200px;
+        /*
+         flex-grow   定义元素可拉伸大小  0-- 不拉伸
+         flex-shrink 定义元素收缩大小 0---不收缩
+         flex-basis 定义元素的基本大小 默认为主轴方向 左-右 
+         */
+      }
+      .center {
+        flex: 1;
+      }
+      
+      @media screen and (max-width:500px){ 
+      body{
+        background-color:red;
+        font-size: 16px;
+      }
+      .left{
+        display: none;
+      }
+    }
+
+      /*
+        补全样式实现以下布局效果（同时满足）:
+        1、左右固定200px，中间自适应宽
+        2、屏幕总宽度<=500px时，隐藏左div
+      */
+      /* coding start... */
+
+      /* coding end... */
+    </style>
+  </head>
+  <body>
+    <h3>实现三列宽度自适应布局</h3>
+    <div class="wrap" onclick="openDialog(event)">
+      <div class="left">我是左边</div>
+      <div class="center">我是中间</div>
+      <div class="right">我是右边</div>
+    </div>
+    <div class="dialog">
+      <div class="dialog-content"></div>
+    </div>
+  </body>
+  <script>
+    class Dialog {
+  constructor() {
+    this.dialog = document.createElement('div');
+    this.dialog.style.position = 'fixed';
+    this.dialog.style.top = '50%';
+    this.dialog.style.left = '50%';
+    this.dialog.style.transform = 'translate(-50%, -50%)';
+    this.dialog.style.background = 'white';
+    this.dialog.style.padding = '20px';
+    this.dialog.style.zIndex = '999';
+    this.dialog.style.display = 'none';
+
+    document.body.appendChild(this.dialog);
+  }
+
+  open(content) {
+    this.dialog.innerHTML = content;
+    this.dialog.style.display = 'block';
+  }
+
+  close() {
+    this.dialog.style.display = 'none';
+  }
+}
+
+const dialogInstance = new Dialog();
+const openDialog = (event) => {
+  const content = event.target.innerText;
+  dialogInstance.open(content);
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.dialog')) {
+      dialogInstance.close();
+    }
+  });
+};
+
+
+  </script>
+</html>
